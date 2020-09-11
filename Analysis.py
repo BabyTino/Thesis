@@ -51,9 +51,9 @@ def find_bullish_harami(data):
     condition_1_BH = data['Open'] > data['Close'].shift(1) 
     # Closed Lower than prev Open
     condition_2_BH = data['Close'] < data['Open'].shift(1) 
-    # previous candle is red
+    # previous candle is Black
     condition_3_BH = data['Open'].shift(1) > data['Close'].shift(1) 
-    # the candle is green
+    # the candle is White
     condition_4_BH = data['Close'] > data['Open'] 
     # must appear in a downTrend
     condition_5_BH = ~ data['Trend']
@@ -82,9 +82,9 @@ def find_bullish_engulfing(data):
     Bull_Eng_cond_1 = data['Close'] > data['Open'].shift(1)
     # the second candle must Open Lower than previous canlde
     Bull_Eng_cond_2 = data['Close'].shift(1) > data['Open']
-    # The second canlde must be green
+    # The second canlde must be White
     Bull_Eng_cond_3 = data['Close'] > data['Open']
-    # The first candle must be red
+    # The first candle must be Black
     Bull_Eng_cond_4 = data['Open'].shift(1) > data['Close'].shift(1)
     
     Bull_Eng_cond_5 = ~ data['Trend']
@@ -105,13 +105,13 @@ def find_bearish_engulfing(data):
 
 def find_white_hammer(data):
     '''
-    Takes in a dataframe containing closing prices of the stock and returns True where green hammer appears
+    Takes in a dataframe containing closing prices of the stock and returns True where White hammer appears
     '''
     # Lower shadow at least twice as long as body
     Gr_Ham_cond_1 = (data['Open'] - data['Low']) > 2*(data['Close']-data['Open']) 
     # Upper shadow shorter than a tenth of the body
     Gr_Ham_cond_2 = (data['Close']-data['Open']) > 10*(data['High'] - data['Close'])
-    # candle should be green
+    # candle should be White
     Gr_Ham_cond_3 = data['Close']>data['Open']
     # downTrend
     Gr_Ham_cond_4 = ~ data['Trend']
@@ -119,7 +119,7 @@ def find_white_hammer(data):
 
 def find_black_Hammer(data):
     '''
-    Takes in a dataframe containing closing prices of the stock and returns True where red hammer appears'''
+    Takes in a dataframe containing closing prices of the stock and returns True where Black hammer appears'''
     # The wick should be at least twice as long as the body
     Rd_Ham_cond_1 = (data['Close'] - data['Low']) > 2*(data['Open']-data['Close'])
     # The Lower shadow must be very small, at least 10 times smaller than the body
@@ -137,7 +137,7 @@ def find_white_hanging(data):
     Gr_Hang_cond_1 = (data['Open']-data['Low']) > 2*(data['Close']-data['Open'])
     # Upper shadow shorter than a tenth of the body
     Gr_Hang_cond_2 = (data['Close']-data['Open']) > 10*(data['High'] - data['Close'])
-    # candle should be green
+    # candle should be White
     Gr_Hang_cond_3 = data['Close'] > data['Open']
     Gr_Hang_cond_4 = data['Trend']
     return Gr_Hang_cond_1 & Gr_Hang_cond_2 & Gr_Hang_cond_3 & Gr_Hang_cond_4
@@ -154,9 +154,9 @@ def find_black_hanging(data):
 def find_piercing_pattern(data):
     '''
     Takes in a dataframe containing closing prices of the stock and returns True where piercing pattern appears'''
-    # Last candle RED
+    # Last candle Black
     PP_cond_1 = data['Open'].shift(1) > data['Close'].shift(1) 
-    # This candle GREEN
+    # This candle White
     PP_cond_2 = data['Close'] > data['Open'] 
     PP_cond_3 = data['Close'].shift(1) > data['Open']
     PP_cond_4 = data['Close'] > ((data['Close'].shift(1) + data['Open'].shift(1))/2)
@@ -169,9 +169,9 @@ def find_dark_cloud(data):
     '''
     
     Takes in a dataframe containing closing prices of the stock and returns True where dark cloud appears'''
-    # Last candle GREEN
+    # Last candle White
     DK_cond_1 = data['Close'].shift(1) > data['Open'].shift(1) 
-    # This candle RED
+    # This candle Black
     DK_cond_2 = data['Open'] > data['Close'] 
     DK_cond_3 = data['Open'] > data['Close'].shift(1)
     DK_cond_4 =(data['Close'].shift(1) + data['Open'].shift(1))/2 > data['Close']
@@ -183,9 +183,9 @@ def find_dark_cloud(data):
 def find_morning_star(data):
     '''
     Takes in a dataframe containing closing prices of the stock and returns True where morning star appears'''
-    # First candle RED
+    # First candle Black
     MS_cond_1 = data['Open'].shift(2) > data['Close'].shift(2) 
-    # Third candle Green
+    # Third candle White
     MS_cond_2 = data['Close'] > data['Open']
     # Third candle Closes Higher than the middle one
     MS_cond_3 = (data['Close'] > data['Close'].shift(1)) 
@@ -200,9 +200,9 @@ def find_morning_star(data):
 def find_evening_star(data):
     '''
     Takes in a dataframe containing closing prices of the stock and returns True where evening star appears'''
-    # First candle GREEN
+    # First candle White
     ES_cond_1 = data['Close'].shift(2) > data['Open'].shift(2)
-    ES_cond_2 = data['Open'] > data['Close'] #nexy candle RED
+    ES_cond_2 = data['Open'] > data['Close'] #nexy candle Black
     ES_cond_3 = data['Close'] < (data['Close'].shift(2) + data['Open'].shift(2))/2
     ES_cond_4 = data['Open'].shift(1) > data['Close'].shift(2)
     ES_cond_5 = data['Close'].shift(1) > data['Close'].shift(2)
