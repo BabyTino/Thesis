@@ -108,48 +108,48 @@ def find_white_hammer(data):
     Takes in a dataframe containing closing prices of the stock and returns True where White hammer appears
     '''
     # Lower shadow at least twice as long as body
-    Gr_Ham_cond_1 = (data['Open'] - data['Low']) > 2*(data['Close']-data['Open']) 
+    Wh_Ham_cond_1 = (data['Open'] - data['Low']) > 2*(data['Close']-data['Open']) 
     # Upper shadow shorter than a tenth of the body
-    Gr_Ham_cond_2 = (data['Close']-data['Open']) > 10*(data['High'] - data['Close'])
+    Wh_Ham_cond_2 = (data['Close']-data['Open']) > 10*(data['High'] - data['Close'])
     # candle should be White
-    Gr_Ham_cond_3 = data['Close']>data['Open']
+    Wh_Ham_cond_3 = data['Close']>data['Open']
     # downTrend
-    Gr_Ham_cond_4 = ~ data['Trend']
-    return Gr_Ham_cond_1 & Gr_Ham_cond_2 & Gr_Ham_cond_3 & Gr_Ham_cond_4
+    Wh_Ham_cond_4 = ~ data['Trend']
+    return Wh_Ham_cond_1 & Wh_Ham_cond_2 & Wh_Ham_cond_3 & Wh_Ham_cond_4
 
 def find_black_Hammer(data):
     '''
     Takes in a dataframe containing closing prices of the stock and returns True where Black hammer appears'''
     # The wick should be at least twice as long as the body
-    Rd_Ham_cond_1 = (data['Close'] - data['Low']) > 2*(data['Open']-data['Close'])
+    Bl_Ham_cond_1 = (data['Close'] - data['Low']) > 2*(data['Open']-data['Close'])
     # The Lower shadow must be very small, at least 10 times smaller than the body
-    Rd_Ham_cond_2 = (data['Open']-data['Close']) > 10*(data['High'] - data['Open']) 
+    Bl_Ham_cond_2 = (data['Open']-data['Close']) > 10*(data['High'] - data['Open']) 
     # candle should be bearish
-    Rd_Ham_cond_3 = data['Open'] > data['Close']
+    Bl_Ham_cond_3 = data['Open'] > data['Close']
     
-    Rd_Ham_cond_4 = ~ data['Trend']
-    return Rd_Ham_cond_1 & Rd_Ham_cond_2 & Rd_Ham_cond_3 & Rd_Ham_cond_4
+    Bl_Ham_cond_4 = ~ data['Trend']
+    return Bl_Ham_cond_1 & Bl_Ham_cond_2 & Bl_Ham_cond_3 & Bl_Ham_cond_4
 
 def find_white_hanging(data):
     '''
     Takes in a dataframe containing closing prices of the stock and returns True where hanging man appears'''
     # Lower shadow should be at least twice as long as the body
-    Gr_Hang_cond_1 = (data['Open']-data['Low']) > 2*(data['Close']-data['Open'])
+    Wh_Hang_cond_1 = (data['Open']-data['Low']) > 2*(data['Close']-data['Open'])
     # Upper shadow shorter than a tenth of the body
-    Gr_Hang_cond_2 = (data['Close']-data['Open']) > 10*(data['High'] - data['Close'])
+    Wh_Hang_cond_2 = (data['Close']-data['Open']) > 10*(data['High'] - data['Close'])
     # candle should be White
-    Gr_Hang_cond_3 = data['Close'] > data['Open']
-    Gr_Hang_cond_4 = data['Trend']
-    return Gr_Hang_cond_1 & Gr_Hang_cond_2 & Gr_Hang_cond_3 & Gr_Hang_cond_4
+    Wh_Hang_cond_3 = data['Close'] > data['Open']
+    Wh_Hang_cond_4 = data['Trend']
+    return Wh_Hang_cond_1 & Wh_Hang_cond_2 & Wh_Hang_cond_3 & Wh_Hang_cond_4
 
 def find_black_hanging(data):
     '''
     Takes in a dataframe containing closing prices of the stock and returns True where hanging man appears'''
-    Rd_Hang_cond_1 = (data['Close'] - data['Low']) > 2*(data['Open']-data['Close'])
-    Rd_Hang_cond_2 = (data['Open']-data['Close']) > 10*(data['High'] - data['Open'])
-    Rd_Hang_cond_3 = data['Open'] > data['Close']
-    Rd_Hang_cond_4 = data['Trend']
-    return Rd_Hang_cond_1 & Rd_Hang_cond_2 & Rd_Hang_cond_3 & Rd_Hang_cond_4
+    Bl_Hang_cond_1 = (data['Close'] - data['Low']) > 2*(data['Open']-data['Close'])
+    Bl_Hang_cond_2 = (data['Open']-data['Close']) > 10*(data['High'] - data['Open'])
+    Bl_Hang_cond_3 = data['Open'] > data['Close']
+    Bl_Hang_cond_4 = data['Trend']
+    return Bl_Hang_cond_1 & Bl_Hang_cond_2 & Bl_Hang_cond_3 & Bl_Hang_cond_4
 
 def find_piercing_pattern(data):
     '''
